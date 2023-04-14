@@ -49,6 +49,7 @@ export class MemberService {
   }
 
   getMembers(userParams: UserParams) {
+    
     const response = this.memberCache.get(Object.values(userParams).join('-'));
 
     if (response) return of(response);
@@ -66,7 +67,7 @@ export class MemberService {
         this.memberCache.set(Object.values(userParams).join('-'), response);
         return response;
       })
-    )
+    );
   }
 
 
@@ -97,7 +98,7 @@ export class MemberService {
   }
 
   addLike(username: string) {
-    return this.http.get<Partial<Member[]>>(this.baseUrl + 'likes/' + username, {})
+    return this.http.post(this.baseUrl + 'likes/' + username, {})
   }
 
   getLikes(predicate: string, pageNumber: number, pageSize: number) {
