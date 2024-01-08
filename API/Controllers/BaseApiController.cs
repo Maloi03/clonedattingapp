@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 namespace API.Controllers
 {
     [ServiceFilter(typeof(LogUserActivity))]
-    [ApiController]
-    [Route("api/[controller]")]
-    public class BaseApiController : ControllerBase
+    [ApiController]      //bo dieu khien API
+    [Route("api/[controller]")]     // root cho bo dieu khien API
+    public class BaseApiController : ControllerBase   // ap dung MVC cho controllerbase (model - view - controller)
     {
     }
 }

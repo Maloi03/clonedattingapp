@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace API.Data
 {
+    //cau noi giua code va CSDL
     public class DataContext : IdentityDbContext<AppUser, AppRole, int,
         IdentityUserClaim<int>, AppUserRole, IdentityUserLogin<int>,
         IdentityRoleClaim<int>, IdentityUserToken<int>>
@@ -17,8 +18,8 @@ namespace API.Data
         {
         }
         
-        public DbSet<UserLike> Likes { get; set; }
-        public DbSet<Message> Messages { get; set; }
+        public DbSet<UserLike> Likes { get; set; }  // lien ket CSDL like
+        public DbSet<Message> Messages { get; set; } // lien ket CSDL tin nhan
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

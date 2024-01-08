@@ -6,19 +6,19 @@ import { environment } from 'src/environments/environment';
 import { User } from '../_models/user';
 
 
-@Injectable({
+@Injectable({  // big data duoc cung cap
   providedIn: 'root'
 })
 export class AccountService {
   [x: string]: any;
-   baseUrl = environment.apiUrl;
+   baseUrl = environment.apiUrl;  //gan link API co so tu environment de cung cap dich vu cho tai khoan
    private currenUserSource = new ReplaySubject<User>(1)
    currentUser$ = this.currenUserSource.asObservable();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { } // dua httpclient vao de nhan duoc dich vu
 
-  login(model: any) {
-    return this.http.post<User>(this.baseUrl + 'account/login', model).pipe(
+  login(model: any) { // tao phuong thuc login, dat model nguoi dung de nen du lieu vao ben trong va cho no gia tri any
+    return this.http.post<User>(this.baseUrl + 'account/login', model).pipe( //them user vao trong post de dan tra ve dung tai khoan nguoi dung sau khi dang nhap
       map((reponse: User) => {
          const user = reponse;
          if (user) {
@@ -47,7 +47,7 @@ export class AccountService {
     }
 
     logout() {
-      localStorage.removeItem('user');
+      localStorage.removeItem('user');  //luu tru cuc bo du lieu nguoi dung khi dang xuat, khong xoa muc va su dung khoa nguoi dung
       this.currenUserSource.next(null!);
     }
 

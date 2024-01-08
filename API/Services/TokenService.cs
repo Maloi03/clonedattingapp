@@ -23,8 +23,9 @@ namespace API.Services
             _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Tokenkey"]));
         }
 
-        public async Task<string> CreateToken(AppUser user)
+        public async Task<string> CreateToken(AppUser user)  // tao logic cho ma thong bao json
         {
+            //trinh bay cach tao va tuan tu ma hoa thong bao xac thuc
             var claims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.NameId, user.Id.ToString()),

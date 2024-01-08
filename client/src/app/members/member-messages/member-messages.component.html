@@ -9,18 +9,18 @@
                 <div>
                     <span class="chat-img float-right">
                         <img class="rounded-circle" src="{{message.senderPhotoUrl || './asstes/user.png'}}"
-                            alt="{{message.senderUsername}}">
+                            alt="{{message.senderUserName}}">
                     </span>
                     <div class="chat-body">
                         <div class="header">
                             <small class="text-muted">
                                 <span class="fa fa-clock-o">{{message.messageSent | timeago}}</span>
                                 <span class="text-danger" *ngIf="!message.dateRead 
-                                    && message.senderUsername !== username">
+                                    && message.senderUserName !== username">
                                     (unread)
                                 </span>
                                 <span class="text-success" *ngIf="message.dateRead 
-                                && message.senderUsername !== username">
+                                && message.senderUserName !== username">
                                 (read {{message.dateRead | timeago}})
                                 </span>
                             </small>

@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace API.Controllers
 {
-    // [Authorize]
+    // [Authorize] --thuoc tinh uy quyen
     public class UsersController : BaseApiController
     {
         private readonly IUserRepository _userRepository;
@@ -34,7 +34,7 @@ namespace API.Controllers
 
       //  [Authorize(Roles = "Admin")]
         [HttpGet]
-        public async Task<ActionResult<PagedList<MemberDTO>>> GetUsers([FromQuery]UserParams userParams)
+        public async Task<ActionResult<PagedList<MemberDTO>>> GetUsers([FromQuery]UserParams userParams)  
         {
            var currentUser = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
             userParams.CurrentUsername = currentUser.UserName;

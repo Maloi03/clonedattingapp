@@ -27,7 +27,7 @@ namespace API
     {
         private readonly IConfiguration _config;
 
-        public Startup(IConfiguration config)
+        public Startup(IConfiguration config)  //dua startup vao lop tinh
         {
             _config = config;
         }
@@ -54,10 +54,12 @@ namespace API
 
             app.UseRouting();
 
-            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200"));
+            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("*"));
 
             app.UseAuthentication();
-
+            
+            app.UseSwagger();
+            app.UseSwaggerUI();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

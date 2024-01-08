@@ -15,22 +15,22 @@ import { parseDate } from 'ngx-bootstrap/chronos';
   styleUrls: ['./member-detail.component.css']
 })
 export class MemberDetailComponent implements OnInit {
-  @ViewChild('memberTabs', {static: true}) memberTabs: TabsetComponent;
-   member!: Member;
-   galleryOptions!: NgxGalleryOptions[];
-   galleryImages!: NgxGalleryImage[];
-   activeTab: TabDirective;
-   messages: Message[] = [];
+  @ViewChild('memberTabs', { static: true }) memberTabs: TabsetComponent;
+  member!: Member;
+  galleryOptions!: NgxGalleryOptions[];
+  galleryImages!: NgxGalleryImage[];
+  activeTab: TabDirective;
+  messages: Message[] = [];
 
   constructor(private membersService: MemberService, private route: ActivatedRoute,
-    private messageService: MessageService ) {}
+    private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.route.data.subscribe(data => {
       this.member = data['member'];
     })
 
-    this.route.queryParams.subscribe(params =>{
+    this.route.queryParams.subscribe(params => {
       params['tab'] ? this.selectTab(params['tab']) : this.selectTab(0);
     })
 
@@ -47,17 +47,17 @@ export class MemberDetailComponent implements OnInit {
     this.galleryImages = this.getImages();
   }
 
-  getImages() : NgxGalleryImage[] {
-      const imageUrls = [];
-      for (const photo of this.member.photos){
-        imageUrls.push({
-           small: photo?.url,
-           medium: photo?.url,
-           big:photo?.url
-        })
-      }
+  getImages(): NgxGalleryImage[] {
+    const imageUrls = [];
+    for (const photo of this.member.photos) {
+      imageUrls.push({
+        small: photo?.url,
+        medium: photo?.url,
+        big: photo?.url
+      })
+    }
 
-      return imageUrls;
+    return imageUrls;
   }
 
   loadMessages() {
@@ -65,7 +65,7 @@ export class MemberDetailComponent implements OnInit {
       this.messages = messages;
     })
   }
-  selectTab(tabId: number){
+  selectTab(tabId: number) {
     this.memberTabs.tabs[tabId].active = true;
   }
 

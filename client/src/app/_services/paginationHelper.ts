@@ -15,6 +15,7 @@ export function getPaginatedResult<T>(url: string, params: any, http: HttpClient
       if (pagination) {
         paginatedResult.pagination = JSON.parse(pagination);
       }
+      console.log(response.body);
       return paginatedResult;
     })
   );

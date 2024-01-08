@@ -12,8 +12,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    public class MessagesController : BaseApiController
+    public class MessagesController : BaseApiController   // ke thua va nhan cac phan hoi tra ve API
     {
+        // tao tham so va truong du lieu
         private readonly IUserRepository _userRepository;
         private readonly IMessageRepository _messageRepository;
         private readonly IMapper _mapper;
@@ -23,14 +24,15 @@ namespace API.Controllers
             _messageRepository = messageRepository;
             _userRepository = userRepository;
         }
-        [HttpPost]
+
+        [HttpPost]   // gui du lieu len may chu
         public async Task<ActionResult<MessageDto>> CreateMessage(CreateMessageDto createMessageDto)
         {
-            var username = User.GetUsername();
-            if (username == createMessageDto.RecipientUsername.ToLower())
+            var username = User.GetUsername();    // khai bao bien username
+            if (username == createMessageDto.RecipientUsername.ToLower())  // neu username bằng tên người nhận => trả về badrequest
                 return BadRequest("You cannot send messages to yourself");
 
-            var sender = await _userRepository.GetUserByUsernameAsync(username);
+            var sender = await _userRepository.GetUserByUsernameAsync(username);   
             var recipient = await _userRepository.GetUserByUsernameAsync(createMessageDto.RecipientUsername);
 
             if (recipient == null) return NotFound();
@@ -47,7 +49,7 @@ namespace API.Controllers
             return BadRequest("Failed to send message");
 
         }
-        [HttpGet]
+        [HttpGet]   //lay du lieu tu csdl
         public async Task<ActionResult<IEnumerable<MessageDto>>> GetMessagesForUser([FromQuery] MessageParams messageParams)
         {
             messageParams.Username = User.GetUsername();
@@ -62,7 +64,7 @@ namespace API.Controllers
             return Ok(await _messageRepository.GetMessageThread(currentUsername, username));
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}")]   // xoa thong tin la id tren may chu
         public async Task<ActionResult> DeleteMessage(int id)
         {
             var username = User.GetUsername();

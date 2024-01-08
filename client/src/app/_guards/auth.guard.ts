@@ -11,6 +11,7 @@ import { Observable } from 'rxjs';
 export class AuthGuard implements CanActivate {
 
   constructor(private accountService: AccountService, private toastr: ToastrService) {}
+  
   CanActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
     throw new Error('Method not implemented.');
   }
