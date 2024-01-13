@@ -4,6 +4,7 @@ import { ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { User } from '../_models/user';
+import { PresenceService } from './presence.service';
 
 
 @Injectable({  // big data duoc cung cap
@@ -15,7 +16,7 @@ export class AccountService {
    private currenUserSource = new ReplaySubject<User>(1)
    currentUser$ = this.currenUserSource.asObservable();
 
-  constructor(private http: HttpClient) { } // dua httpclient vao de nhan duoc dich vu
+  constructor(private http: HttpClient, private presence: PresenceService) { } // dua httpclient vao de nhan duoc dich vu
 
   login(model: any) { // tao phuong thuc login, dat model nguoi dung de nen du lieu vao ben trong va cho no gia tri any
     return this.http.post<User>(this.baseUrl + 'account/login', model).pipe( //them user vao trong post de dan tra ve dung tai khoan nguoi dung sau khi dang nhap
@@ -23,6 +24,7 @@ export class AccountService {
          const user = reponse;
          if (user) {
            this.setCurrentUser(user);
+           this.presence.createHubConnection(user);
          }
       })
     )
@@ -33,6 +35,7 @@ export class AccountService {
       map((user: User) => {
          if (user) {
           this.setCurrentUser(user);
+          this.presence.createHubConnection(user);
          }
       })
     )
@@ -49,6 +52,7 @@ export class AccountService {
     logout() {
       localStorage.removeItem('user');  //luu tru cuc bo du lieu nguoi dung khi dang xuat, khong xoa muc va su dung khoa nguoi dung
       this.currenUserSource.next(null!);
+      this.presence.stopHubConnection();
     }
 
     getDecodedToken(token: any) {

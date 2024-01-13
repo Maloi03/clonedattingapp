@@ -20,6 +20,8 @@ namespace API.Data
         
         public DbSet<UserLike> Likes { get; set; }  // lien ket CSDL like
         public DbSet<Message> Messages { get; set; } // lien ket CSDL tin nhan
+        public DbSet<Group> Groups { get; set; } // lien ket CSDL
+        public DbSet<Connection> Connections { get; set; } // lien ket CSDL
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
