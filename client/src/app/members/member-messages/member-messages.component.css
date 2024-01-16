@@ -17,28 +17,12 @@
 .rounded-circle {
     max-height: 50px;
 }
-/* CSS để ẩn dòng tin nhắn khi có quá nhiều */
-ul.chat {
-    max-height: 470px; /* Điều chỉnh chiều cao tối đa của danh sách tin nhắn */
-    overflow-y: auto; /* Cho phép cuộn nếu nội dung vượt quá kích thước */
-  }
-  
-  /* Tùy chỉnh các hiệu ứng khi hover trên tin nhắn */
-  ul.chat li:hover {
-    background-color: #f2f2f2; /* Màu nền khi di chuột vào tin nhắn */
-    cursor: pointer; /* Đổi hình con trỏ thành bàn tay khi di chuột vào tin nhắn */
-  }
-  
-  /* CSS để ẩn nút cuộn khi danh sách tin nhắn không đầy đủ chiều cao */
-  ul.chat::-webkit-scrollbar {
-    width: 8px;
-  }
-  
-  ul.chat::-webkit-scrollbar-thumb {
-    background-color: #888;
-  }
-  
-  ul.chat::-webkit-scrollbar-thumb:hover {
-    background-color: #555;
-  }
-  
+
+.chat-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.chat-img {
+  margin-right: 20px;
+}

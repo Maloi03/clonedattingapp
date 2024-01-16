@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Member } from '../_models/member';
 import { Pagination } from '../_models/pagination';
 import { MemberService } from '../_services/member.service';
+import { MemberListComponent } from '../members/member-list/member-list.component';
 
 @Component({
   selector: 'app-lists',
@@ -9,7 +10,8 @@ import { MemberService } from '../_services/member.service';
   styleUrls: ['./lists.component.css']
 })
 export class ListsComponent implements OnInit {
-  members: Partial<Member[] | undefined>;
+  members: Member[] | undefined;
+  //members: Partial<Member[] | undefined>;
   predicate = 'liked';
   pageNumber = 1;
   pageSize = 5;
@@ -24,14 +26,15 @@ export class ListsComponent implements OnInit {
   loadLikes() {
     this.memberService.getLikes(this.predicate, this.pageNumber, this.pageSize).subscribe({
       next: response => {
-        this.members = response.result;
+       // if (response.result && response.pagination){
+        this.members = response.result as [];
         this.pagination = response.pagination;
-      }
-    })
+      //}
+    }})
   }
 
   pageChanged(event: any) {
-    if (this.pageNumber = event.page) {
+    if (this.pageNumber !== event.page) {
       this.pageNumber = event.page;
       this.loadLikes();
     }
