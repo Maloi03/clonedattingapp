@@ -4,40 +4,44 @@
   border-radius: 4px;
 }
 
-.nav-tabs > li.open, .member-tabset > .nav-tabs > li:hover {
+.nav-tabs>li.open,
+.member-tabset>.nav-tabs>li:hover {
   border-bottom: 4px solid #fbcdcf;
 }
 
-.member-tabset > .nav-tabs > li.open > a, .member-tabset > .nav-tabs > li:hover > a {
+.member-tabset>.nav-tabs>li.open>a,
+.member-tabset>.nav-tabs>li:hover>a {
   border: 0;
   background: none !important;
   color: #333333;
 }
 
-.member-tabset > .nav-tabs > li.open > a > i, .member-tabset > .nav-tabs > li:hover > a > i {
+.member-tabset>.nav-tabs>li.open>a>i,
+.member-tabset>.nav-tabs>li:hover>a>i {
   color: #a6a6a6;
 }
 
 
-.member-tabset > .nav-tabs > li.open .dropdown-menu, .member-tabset > .nav-tabs > li:hover .dropdown-menu {
+.member-tabset>.nav-tabs>li.open .dropdown-menu,
+.member-tabset>.nav-tabs>li:hover .dropdown-menu {
   margin-top: 0px;
 }
 
-.member-tabset > .nav-tabs > li.active {
+.member-tabset>.nav-tabs>li.active {
   border-bottom: 4px solid #E95420;
   position: relative;
 }
 
-.member-tabset > .nav-tabs > li.active > a {
+.member-tabset>.nav-tabs>li.active>a {
   border: 0 !important;
   color: #333333;
 }
 
-.member-tabset > .nav-tabs > li.active > a > i {
+.member-tabset>.nav-tabs>li.active>a>i {
   color: #404040;
 }
 
-.member-tabset > .tab-content {
+.member-tabset>.tab-content {
   margin-top: -3px;
   background-color: #fff;
   border: 0;
@@ -47,7 +51,7 @@
 
 
 /* tu them css */
- /* *{
+/* *{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -60,18 +64,24 @@ body{
 
 spanx {
   position: absolute;
-  pointer-events: none; 
+  pointer-events: none;
   /* filter: drop-shadow(0 0 15px rgba(0, 0, 0, 0.5));  */
-animation: fadeInOut 1s linear infinite;
+  animation: fadeInOut 1s linear infinite;
 }
+
 @keyframes fadeInOut {
-  0%,100% {
+
+  0%,
+  100% {
     opacity: 0;
   }
-  20%,80%{
+
+  20%,
+  80% {
     opacity: 1;
   }
 }
+
 spanx::before {
   content: '';
   position: absolute;
@@ -82,12 +92,12 @@ spanx::before {
   animation: moveShape 1s linear infinite;
 }
 
-@keyframes moveShape{
+@keyframes moveShape {
   0% {
     transform: translate(0) rotate(0deg);
   }
+
   100% {
     transform: translate(300px) rotate(360deg);
   }
 }
-

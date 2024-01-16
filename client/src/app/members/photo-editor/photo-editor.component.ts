@@ -15,7 +15,7 @@ import { environment } from 'src/environments/environment';
 })
 export class PhotoEditorComponent implements OnInit {
   @Input() member: Member;
-  uploader: FileUploader;
+  uploader: FileUploader | undefined;
   hasBaseDropzoneOver: false;
   baseUrl = environment.apiUrl;
   user: User;
