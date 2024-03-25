@@ -17,7 +17,7 @@ namespace API.Entities
 
         // public byte[] PasswordSalt { get; set; }
 
-        public DateTime DateofBirth { get; set; }
+        public DateTime DateOfBirth { get; set; }
 
         public string KnownAs { get; set; }
 
@@ -43,6 +43,7 @@ namespace API.Entities
         public ICollection<Message> MessagesSent { get; set; }
         public ICollection<Message> MessagesReceived { get; set; }
         public ICollection<AppUserRole> UserRoles { get; set; }
+         public ICollection<NewFeed> UpContents { get; set; }
 
         // public int GetAge() {
         //     return DateofBirth.CaculateAge();

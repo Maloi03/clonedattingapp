@@ -12,17 +12,17 @@ import { PresenceService } from 'src/app/_services/presence.service';
 export class MemberCardComponent implements OnInit {
   @Input() member: Member;
 
-  constructor(private memberService: MemberService, 
-    private toastr: ToastrService,public presence: PresenceService ) {
+  constructor(private memberService: MemberService,
+    private toastr: ToastrService, public presence: PresenceService) {
 
   }
 
   ngOnInit(): void {
-    
+
   }
 
   addLike(member: Member) {
-    this.memberService.addLike(member.username).subscribe(() =>{
+    this.memberService.addLike(member.username).subscribe(() => {
       this.toastr.success('You have liked ' + member.knownAs);
     })
   }

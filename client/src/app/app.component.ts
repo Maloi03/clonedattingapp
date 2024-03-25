@@ -26,7 +26,5 @@ export class AppComponent implements OnInit { // phuong thuc ham tao giao dien
       this.presence.createHubConnection(user);
       console.log('đã kết nối');
     }
-
   }
-
 }

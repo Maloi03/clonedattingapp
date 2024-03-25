@@ -1,0 +1,50 @@
+.post {
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 14px;
+}
+.post img {
+    max-width: 100%;
+    height: auto;
+}
+.post p {
+    margin: 10px 0;
+}
+.post .actions {
+    margin-top: 10px;
+}
+.post .actions button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.img-circle{
+    max-height: 50px;
+    margin-right: 10px;
+}
+
+.posthead{
+    display: flex;
+    justify-content: flex-start;
+}
+
+.container{
+    width: 950px;
+
+}
+
+.head{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}

@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Member } from '../_models/member';
-import { Pagination } from '../_models/pagination';
-import { MemberService } from '../_services/member.service';
-import { MemberListComponent } from '../members/member-list/member-list.component';
+import { Component, OnInit } from "@angular/core";
+import { Pagination } from "../_models/pagination";
+import { MemberService } from "../_services/member.service";
+import { Member } from 'src/app/_models/member';
 
 @Component({
   selector: 'app-lists',
@@ -10,14 +9,14 @@ import { MemberListComponent } from '../members/member-list/member-list.componen
   styleUrls: ['./lists.component.css']
 })
 export class ListsComponent implements OnInit {
-  members: Member[] | undefined;
+  members: Member[] = [];
   //members: Partial<Member[] | undefined>;
   predicate = 'liked';
   pageNumber = 1;
   pageSize = 5;
   pagination: Pagination | undefined;
 
-  constructor(private memberService: MemberService) { }
+  constructor(private memberService: MemberService) { this.members = [];}
 
   ngOnInit(): void {
     this.loadLikes();
@@ -26,13 +25,11 @@ export class ListsComponent implements OnInit {
   loadLikes() {
     this.memberService.getLikes(this.predicate, this.pageNumber, this.pageSize).subscribe({
       next: response => {
-       // if (response.result && response.pagination){
         this.members = response.result as [];
         this.pagination = response.pagination;
-      //}
-    }})
+      }
+    })
   }
-
   pageChanged(event: any) {
     if (this.pageNumber !== event.page) {
       this.pageNumber = event.page;

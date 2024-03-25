@@ -23,27 +23,29 @@ namespace API.Data
             _context = context;
             _mapper = mapper;
         }
-        
-        public async Task<MemberDTO> GetMemberAsync(string username)
+
+        public async Task<MemberDTO> GetMemberAsync(string username, bool isCurrentUser)
         {
-            return await _context.Users
+            var query = _context.Users
                 .Where(x => x.UserName == username)
                 .ProjectTo<MemberDTO>(_mapper.ConfigurationProvider)
-                .SingleOrDefaultAsync();
+                .AsQueryable();
+            if (isCurrentUser) query = query.IgnoreQueryFilters();
+            return await query.FirstOrDefaultAsync();
         }
 
         public async Task<PagedList<MemberDTO>> GetMembersAsync(UserParams userParams)
         {
             var query = _context.Users.AsQueryable();
-                // .ProjectTo<MemberDTO>(_mapper.ConfigurationProvider)
-                // .AsNoTracking()
-            query = query.Where(u => u.UserName != userParams.CurrentUsername); 
-            query = query.Where(u => u.Gender == userParams.Gender);  
+            // .ProjectTo<MemberDTO>(_mapper.ConfigurationProvider)
+            // .AsNoTracking()
+            query = query.Where(u => u.UserName != userParams.CurrentUsername);
+            query = query.Where(u => u.Gender == userParams.Gender);
 
             var minDob = DateTime.Today.AddYears(-userParams.MaxAge - 1);
             var maxDob = DateTime.Today.AddYears(-userParams.MinAge);
 
-            query = query.Where(u => u.DateofBirth >= minDob && u.DateofBirth <= maxDob );
+            query = query.Where(u => u.DateOfBirth >= minDob && u.DateOfBirth <= maxDob);
 
             query = userParams.OrderBy switch
             {
@@ -52,15 +54,25 @@ namespace API.Data
             };
 
             return await PagedList<MemberDTO>.CreateAsync(query.AsNoTracking()
-                .ProjectTo<MemberDTO>(_mapper.ConfigurationProvider), 
+                .ProjectTo<MemberDTO>(_mapper.ConfigurationProvider),
                 userParams.PageNumber, userParams.PageSize);
-                    //.ToListAsync();
+            //.ToListAsync();
         }
 
         public async Task<AppUser> GetUserByIdAsync(int id)
         {
             return await _context.Users.FindAsync(id);
         }
+
+        public async Task<AppUser> GetUserByPhotoId(int photoId)
+        {
+            return await _context.Users
+                .Include(p => p.Photos)
+                .IgnoreQueryFilters()
+                .Where(p => p.Photos.Any(p => p.Id == photoId))
+                .FirstOrDefaultAsync();
+        }
+
 
         public async Task<AppUser> GetUserByUsernameAsync(string username)
         {
@@ -71,7 +83,7 @@ namespace API.Data
 
         public async Task<string> GetUserGender(string username)
         {
-            return await _context.Users.Where(x=>x.UserName == username).Select(x =>x.Gender).FirstOrDefaultAsync();
+            return await _context.Users.Where(x => x.UserName == username).Select(x => x.Gender).FirstOrDefaultAsync();
         }
 
 

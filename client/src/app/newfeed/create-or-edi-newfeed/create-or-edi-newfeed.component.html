@@ -1,0 +1,21 @@
+<p>create-or-edi-newfeed works!</p>
+<div class="row" *ngIf="newfeed" >
+    <img class="img-circle rounded-circle mr-2" src="{{newfeed.creatorPhotoUrl || './assets/user.png'}}"
+    alt="{{newfeed.creatorUserName}}">
+  <span class="author">
+    <strong>{{newfeed.creatorUserName | titlecase}}</strong>
+  </span>
+</div>
+
+<div class="">
+    <form #editForm="ngForm" id="editForm" (ngSubmit)="addNewfeed()">
+      <h4>Feeling</h4>
+      <textarea class="form-control" [(ngModel)]="newfeed.feeling" name="feeling" rows="6"></textarea>
+      <h4 class="mt-2">Content</h4>
+      <textarea class="form-control" [(ngModel)]="newfeed.content" name="content" rows="6"></textarea>
+      <label for="img">Select image:</label>
+      <input type="file" id="img" name="photos" [(ngModel)]="newfeed.photos">
+    </form>
+  </div>
+
+<button [disabled]="!editForm" form="editForm" type="submit" class="btn btn-success btn-block">Save</button>
