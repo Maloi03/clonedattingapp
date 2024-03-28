@@ -27,7 +27,6 @@ namespace API.Data
         public async Task<PagedList<NewFeedDto>> GetAllNewFeeds(NewfeedParams newfeedParams)
         {
             var _query = _context.NewFeeds.AsQueryable();
-
             return await PagedList<NewFeedDto>.CreateAsync(_query.AsNoTracking()
                 .ProjectTo<NewFeedDto>(_mapper.ConfigurationProvider),
                 newfeedParams.PageNumber, newfeedParams.PageSize);

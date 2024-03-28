@@ -43,7 +43,7 @@ namespace API.Entities
         public ICollection<Message> MessagesSent { get; set; }
         public ICollection<Message> MessagesReceived { get; set; }
         public ICollection<AppUserRole> UserRoles { get; set; }
-         public ICollection<NewFeed> UpContents { get; set; }
+        public ICollection<NewFeed> UpContents { get; set; }
 
         // public int GetAge() {
         //     return DateofBirth.CaculateAge();

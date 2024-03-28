@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection.Metadata;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using API.DTOs;
 using API.Entities;
@@ -9,6 +11,7 @@ using API.Extensions;
 using API.Helpers;
 using API.Interfaces;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -23,17 +26,12 @@ namespace API.Controllers
             _unitOfWork = unitOfWork;
         }
         [HttpGet]
-        public async Task<ActionResult<PagedList<NewFeedDto>>> GetNewfeeds([FromQuery] NewfeedParams? newfeedParams)
+        public async Task<ActionResult<PagedList<NewFeedDto>>> GetNewfeeds([FromQuery] NewfeedParams newfeedParams)
         {
-           // return await _unitOfWork.NewfeedRepository.GetAllNewFeeds(newfeedParams);
            return await _unitOfWork.NewfeedRepository.GetAllNewFeeds(newfeedParams);
-            /*Response.AddPaginationHeader(new PaginationHeader(news.CurrentPage, news.PageSize,
-               news.TotalCount, news.TotalPages));
-
-            return Ok(news);*/
         }
 
-        [HttpGet("/api/newfeed/{id}")]
+        [HttpGet("{id}")]
         public async Task<ActionResult<NewFeed>> GetNewfeedById(int id)
         {
             var newfeed = await _unitOfWork.NewfeedRepository.GetNewFeedById(id);
@@ -46,8 +44,10 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<NewFeed>> CreateNewFeed([FromBody] NewFeed newFeed)
-        {
+        public async Task<ActionResult<NewFeed>> CreateNewFeed([FromBody] NewFeed newFeed) ///CreateNewfeedDto createNewfeedDto
+         {
+            var user = await _unitOfWork.UserRepository.GetUserByUsernameAsync(User.GetUsername());
+            
             _unitOfWork.NewfeedRepository.AddNewFeed(newFeed);
             if (await _unitOfWork.Complete()) return Ok(newFeed); //NoContent();
             return BadRequest("Failed to post new feed");
