@@ -14,7 +14,6 @@ import { MemberEditComponent } from './members/member-edit/member-edit.component
 import { MemberDetailedResolver } from './_resolvers/member-detailed.resolver';
 import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
 import { AdminGuard } from './_guards/admin.guard';
-import { NewfeedComponent } from './newfeed/newfeed.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -23,7 +22,6 @@ const routes: Routes = [
     runGuardsAndResolvers: 'always',
     canActivate:[AuthGuard],
     children:[
-       {path: 'newfeed', component: NewfeedComponent,},
        {path: 'members', component: MemberListComponent,},
        {path: 'members/:username', component: MemberDetailComponent, resolve: {member: MemberDetailedResolver}},
        {path: 'member/edit', component: MemberEditComponent, canDeactivate: [PreventUnsavedChangesGuard]},

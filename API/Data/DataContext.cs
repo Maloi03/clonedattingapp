@@ -26,7 +26,7 @@ namespace API.Data
     public DbSet<Group> Groups { get; set; }
     public DbSet<Connection> Connections { get; set; }
     public DbSet<Photo> Photos { get; set; }
-    public DbSet<NewFeed> NewFeeds { get; set; } // lien ket CSDL
+   // public DbSet<NewFeed> NewFeeds { get; set; } // lien ket CSDL
 
 
     protected override void OnModelCreating(ModelBuilder builder)
@@ -72,10 +72,10 @@ namespace API.Data
 
       builder.Entity<Photo>().HasQueryFilter(p => p.IsApproved);
 
-      builder.Entity<NewFeed>()
-          .HasOne(u => u.Creator)
-          .WithMany(c => c.UpContents)
-          .OnDelete(DeleteBehavior.Cascade);
+      // builder.Entity<NewFeed>()
+      //     .HasOne(u => u.Creator)
+      //     .WithMany(c => c.UpContents)
+      //     .OnDelete(DeleteBehavior.Cascade);
 
       builder.ApplyUtcDateTimeConverter();
     }

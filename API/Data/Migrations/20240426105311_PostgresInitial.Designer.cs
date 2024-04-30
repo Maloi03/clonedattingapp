@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace API.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240321092300_PostgresInitial")]
+    [Migration("20240426105311_PostgresInitial")]
     partial class PostgresInitial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -231,38 +231,6 @@ namespace API.Data.Migrations
                     b.ToTable("Messages");
                 });
 
-            modelBuilder.Entity("API.Entities.NewFeed", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<string>("Content")
-                        .HasColumnType("text");
-
-                    b.Property<int?>("CreatorId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("CreatorUserName")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Feeling")
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("PostedTime")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<DateTime>("lastModifiedTime")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreatorId");
-
-                    b.ToTable("NewFeeds");
-                });
-
             modelBuilder.Entity("API.Entities.Photo", b =>
                 {
                     b.Property<int>("Id")
@@ -279,9 +247,6 @@ namespace API.Data.Migrations
                     b.Property<bool>("IsMain")
                         .HasColumnType("boolean");
 
-                    b.Property<int?>("NewFeedId")
-                        .HasColumnType("integer");
-
                     b.Property<string>("PublicId")
                         .HasColumnType("text");
 
@@ -291,8 +256,6 @@ namespace API.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AppUserId");
-
-                    b.HasIndex("NewFeedId");
 
                     b.ToTable("Photos");
                 });
@@ -443,16 +406,6 @@ namespace API.Data.Migrations
                     b.Navigation("Sender");
                 });
 
-            modelBuilder.Entity("API.Entities.NewFeed", b =>
-                {
-                    b.HasOne("API.Entities.AppUser", "Creator")
-                        .WithMany("UpContents")
-                        .HasForeignKey("CreatorId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.Navigation("Creator");
-                });
-
             modelBuilder.Entity("API.Entities.Photo", b =>
                 {
                     b.HasOne("API.Entities.AppUser", "AppUser")
@@ -460,10 +413,6 @@ namespace API.Data.Migrations
                         .HasForeignKey("AppUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("API.Entities.NewFeed", null)
-                        .WithMany("Photos")
-                        .HasForeignKey("NewFeedId");
 
                     b.Navigation("AppUser");
                 });
@@ -540,19 +489,12 @@ namespace API.Data.Migrations
 
                     b.Navigation("Photos");
 
-                    b.Navigation("UpContents");
-
                     b.Navigation("UserRoles");
                 });
 
             modelBuilder.Entity("API.Entities.Group", b =>
                 {
                     b.Navigation("Connections");
-                });
-
-            modelBuilder.Entity("API.Entities.NewFeed", b =>
-                {
-                    b.Navigation("Photos");
                 });
 #pragma warning restore 612, 618
         }

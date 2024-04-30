@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API.DTOs;
 using API.Entities;
+using API.Extensions;
 using API.Interfaces;
 using API.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -80,12 +82,12 @@ namespace API.Controllers
         {
             var photo = await
             _unitOfWork.PhotoRepository.GetPhotoById(photoId);
-            if(photo == null) return NotFound("Could not find photo");
+            if (photo == null) return NotFound("Could not find photo");
             photo.IsApproved = true;
 
             var user = await _unitOfWork.UserRepository.GetUserByPhotoId(photoId);
-            if(!user.Photos.Any(x => x.IsMain)) photo.IsMain = true;
-            
+            if (!user.Photos.Any(x => x.IsMain)) photo.IsMain = true;
+
             await _unitOfWork.Complete();
             return Ok();
         }

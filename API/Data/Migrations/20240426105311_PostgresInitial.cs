@@ -234,24 +234,23 @@ namespace API.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "NewFeeds",
+                name: "Photos",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    CreatorUserName = table.Column<string>(type: "text", nullable: true),
-                    CreatorId = table.Column<int>(type: "integer", nullable: true),
-                    Content = table.Column<string>(type: "text", nullable: true),
-                    Feeling = table.Column<string>(type: "text", nullable: true),
-                    PostedTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    lastModifiedTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
+                    Url = table.Column<string>(type: "text", nullable: true),
+                    IsMain = table.Column<bool>(type: "boolean", nullable: false),
+                    IsApproved = table.Column<bool>(type: "boolean", nullable: false),
+                    PublicId = table.Column<string>(type: "text", nullable: true),
+                    AppUserId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_NewFeeds", x => x.Id);
+                    table.PrimaryKey("PK_Photos", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_NewFeeds_AspNetUsers_CreatorId",
-                        column: x => x.CreatorId,
+                        name: "FK_Photos_AspNetUsers_AppUserId",
+                        column: x => x.AppUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -273,36 +272,6 @@ namespace API.Data.Migrations
                         column: x => x.GroupName,
                         principalTable: "Groups",
                         principalColumn: "Name",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Photos",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Url = table.Column<string>(type: "text", nullable: true),
-                    IsMain = table.Column<bool>(type: "boolean", nullable: false),
-                    IsApproved = table.Column<bool>(type: "boolean", nullable: false),
-                    PublicId = table.Column<string>(type: "text", nullable: true),
-                    AppUserId = table.Column<int>(type: "integer", nullable: false),
-                    NewFeedId = table.Column<int>(type: "integer", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Photos", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Photos_AspNetUsers_AppUserId",
-                        column: x => x.AppUserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Photos_NewFeeds_NewFeedId",
-                        column: x => x.NewFeedId,
-                        principalTable: "NewFeeds",
-                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -364,19 +333,9 @@ namespace API.Data.Migrations
                 column: "SenderId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_NewFeeds_CreatorId",
-                table: "NewFeeds",
-                column: "CreatorId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Photos_AppUserId",
                 table: "Photos",
                 column: "AppUserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Photos_NewFeedId",
-                table: "Photos",
-                column: "NewFeedId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -413,9 +372,6 @@ namespace API.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Groups");
-
-            migrationBuilder.DropTable(
-                name: "NewFeeds");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

@@ -33,8 +33,6 @@ import { UserManagementComponent } from './admin/user-management/user-management
 import { PhotoManagementComponent } from './admin/photo-management/photo-management.component';
 import { RolesModalComponent } from './modals/roles-modal/roles-modal.component';
 import { ConfirmDialogComponent } from './modals/confirm-dialog/confirm-dialog.component';
-import { NewfeedComponent } from './newfeed/newfeed.component';
-import { CreateOrEdiNewfeedComponent } from './newfeed/create-or-edi-newfeed/create-or-edi-newfeed.component';
 
 @NgModule({
   declarations: [
@@ -60,9 +58,7 @@ import { CreateOrEdiNewfeedComponent } from './newfeed/create-or-edi-newfeed/cre
     UserManagementComponent,
     PhotoManagementComponent,
     RolesModalComponent,
-    ConfirmDialogComponent,
-    NewfeedComponent,
-    CreateOrEdiNewfeedComponent
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,

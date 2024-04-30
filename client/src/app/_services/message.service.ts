@@ -7,7 +7,7 @@ import { User } from '../_models/user';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 import { BehaviorSubject, take } from 'rxjs';
 import { Group } from '../_models/group';
-import { ColdObservable } from 'rxjs/internal/testing/ColdObservable';
+
 
 @Injectable({
   providedIn: 'root'
@@ -22,9 +22,7 @@ export class MessageService {
     
    }
 
-  createHubConnection(user: User, otherUsername: string) {
-    console.log("sdjfguisdgfiugfuisgfuisgd");
-    
+  createHubConnection(user: User, otherUsername: string) {   
     this.hubConnection = new HubConnectionBuilder()
       .withUrl(this.hubUrl + 'message?user=' + otherUsername, {
         accessTokenFactory: () => user.token
@@ -41,7 +39,6 @@ export class MessageService {
     this.hubConnection.on('NewMessage', message => {
       this.messageThread$.pipe(take(1)).subscribe({
         next: messages => {
-          console.log(messages)
           this.messageThreadSource.next([...messages, message]);
         }
       })
@@ -77,7 +74,6 @@ export class MessageService {
   }
 
   getMessageThread(username: string) {
-    console.log('this');
     return this.http.get<Message[]>(this.baseUrl + 'messages/thread/' + username);
   }
 
