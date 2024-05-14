@@ -1,10 +1,11 @@
-<div class="row">
+<div class="row ">
   <div class="col-3">
     <div class="card">
       <img src="{{member.photoUrl || './assets/user.png' }}" alt="" class="card-img-top img-thumbnail">
       <div class="card-body">
         <div class="mb-2" *ngIf="(presenceService.onlineUsers$ | async)?.includes(member.username)">
-        <i class="fa fa-user-circle text-success"></i>Online now</div>
+          <i class="fa fa-user-circle text-success"></i>Online now
+        </div>
         <div class="">
           <strong>Location: </strong>
           <p>{{member.city}},{{member.country}} </p>
@@ -24,15 +25,14 @@
       </div>
       <div class="card-footer">
         <div class="btn-group d-flex">
-          <button class="button btn btn-primary">Like</button>
-          <button (click)="selectTab(3)" class="button btn btn-success">Message</button>
-
+          <button class="button btn btn-outline-primary" (click)="addLike(member)">Like <i class="fa fa-heart " aria-hidden="true"></i> </button>
+          <button (click)="selectTab(3)" class="button btn btn-outline-success">Message <i class="fa fa-comment" aria-hidden="true"></i></button>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="col-8">
+  <div class="col-9" style="border-radius: 14px;border: 1px solid rgb(192, 190, 190); " >
     <tabset class="member-tabset" #memberTabs>
       <tab heading="About {{member.knownAs}}" (selectTab)="onTabActivated($event)">
         <h4>Description</h4>
@@ -46,13 +46,13 @@
 
       </tab>
       <tab heading="Photos" (selectTab)="onTabActivated($event)">
-       <ngx-gallery [options]="galleryOptions" [images]="galleryImages"
-       style=" display: inline-block; margin-bottom: 20px;"></ngx-gallery>
+        <ngx-gallery [options]="galleryOptions" [images]="galleryImages"
+          style=" display: inline-block; margin:0 0 5px 20px;"></ngx-gallery>
 
       </tab>
       <tab heading="Messages" (selectTab)="onTabActivated($event)">
         <app-member-messages [username]="member.username"></app-member-messages>
       </tab>
-     </tabset>
+    </tabset>
   </div>
 </div>

@@ -6,11 +6,14 @@
 
 .card-body{
   padding: 0 25px;
-
 }
 
 .card-footer{
     padding: 10px 15px;
     background-color: #fff;
     border-top: none;
+}
+
+.row{
+  width: 1350px;
 }

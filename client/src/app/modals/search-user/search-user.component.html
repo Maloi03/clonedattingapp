@@ -1,0 +1,48 @@
+<div class="modal-header">
+    <h4 class="modal-title pull-left">Search for your Matches</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+        <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+</div>
+<div class="container mt-3" *ngIf="userParams">
+    <form #form="ngForm" class="d-flex mb-3" (ngSubmit)="confirm()" autocomplete="off">
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="d-flex mx-2">
+                        <label class="col-form-label me">Age from: </label>
+                        <input type="number" class="form-control ms-1" style="width: 110px" name="minAge"
+                            [(ngModel)]="userParams.minAge">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="d-flex mx-2">
+                        <label class="col-form-label me-3">Age to: </label><br>
+                        <input type="number" class="form-control ms-1" style="width: 110px" name="maxAge"
+                            [(ngModel)]="userParams.maxAge">
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="d-flex mx-2">
+                <label class="col-form-label " style="margin-right: 40px;">City: </label><br>
+                <input type="text" class="form-control ms-1" style="width: 110px" name="city"
+                    [(ngModel)]="userParams.city">
+            </div>
+            <br>
+            <div class="d-flex px-2">
+                <label class="col-form-label me-4" style="min-width: 50px;">Show: </label>
+                <select name="gender" style="width: 110px" class="form-select ms-1" [(ngModel)]="userParams.gender">
+                    <option *ngFor="let gender of genderList" [value]="gender.value">
+                        {{gender.display}}
+                    </option>
+                </select>
+            </div>
+
+        </div>
+    </form> 
+    <div class="modal-footer">
+            <button type="submit" class="btn btn-success" (click)="confirm()">Apply Filters</button>
+            <button type="button" class="btn btn-danger" (click)="resetFilters()">Reset Filters</button>
+        </div>
+</div>

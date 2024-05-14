@@ -1,7 +1,10 @@
 import { AccountService } from './../_services/account.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
+import { SearchUserComponent } from '../modals/search-user/search-user.component';
+import { UserParams } from '../_models/userParams';
 
 
 @Component({
@@ -11,10 +14,11 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class NavComponent implements OnInit {
   model: any = {};
-
+  showSearch: boolean = false;
+  bsModalRef: BsModalRef;
 
   constructor(public accountService: AccountService, private router: Router, 
-    private toastr: ToastrService) { }  // dua accountservice, router va toastrservice vao ham tao
+    private toastr: ToastrService, private modalService: BsModalService) { }  // dua accountservice, router va toastrservice vao ham tao
 
   ngOnInit(): void {
   }
@@ -29,4 +33,9 @@ export class NavComponent implements OnInit {
     this.accountService.logout();   //sau khi dang xuat la 1 danh sach dinh tuyen su dung dieu huong url
     this.router.navigateByUrl('/'); //kiem tra hoat dong dang nhap vao va dang xuat ra de kiem tra 
   }
+
+  toggleSearch() {
+    this.bsModalRef =this.modalService.show(SearchUserComponent)
+  }
+  
 }

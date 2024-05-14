@@ -85,8 +85,8 @@ spanx {
 spanx::before {
   content: '';
   position: absolute;
-  width: 50%;
-  height: 50%;
+  width: 20%;
+  height: 20%;
   background: url(heart.png);
   background-size: cover;
   animation: moveShape 1s linear infinite;
@@ -101,3 +101,9 @@ spanx::before {
     transform: translate(300px) rotate(360deg);
   }
 }
+
+/* body{
+    background-image: url('/assets/Hen-ho-9541-1693296414.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+} */

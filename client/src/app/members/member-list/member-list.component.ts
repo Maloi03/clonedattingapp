@@ -1,5 +1,6 @@
 
 import { Component, OnInit } from '@angular/core';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Observable, take } from 'rxjs';
 import { Member } from 'src/app/_models/member';
 import { Pagination } from 'src/app/_models/pagination';
@@ -7,6 +8,7 @@ import { User } from 'src/app/_models/user';
 import { UserParams } from 'src/app/_models/userParams';
 import { AccountService } from 'src/app/_services/account.service';
 import { MemberService } from 'src/app/_services/member.service';
+import { SearchUserComponent } from 'src/app/modals/search-user/search-user.component';
 
 
 @Component({
@@ -14,7 +16,7 @@ import { MemberService } from 'src/app/_services/member.service';
   templateUrl: './member-list.component.html',
   styleUrls: ['./member-list.component.css']
 })
-export class MemberListComponent implements OnInit{
+export class MemberListComponent implements OnInit {
 
   //members$ : Observable<Member[]>;
   members: Member[] = [];
@@ -23,7 +25,9 @@ export class MemberListComponent implements OnInit{
   user: User;
   genderList = [{ value: 'male', display: 'Males' }, { value: 'female', display: 'Females' }]
 
-  constructor(private memberService: MemberService) {
+  showSearch: boolean = false;
+  bsModalRef: BsModalRef;
+  constructor(private memberService: MemberService,private modalService: BsModalService) {
     this.userParams = this.memberService.getUserParams();
   }
 
@@ -44,12 +48,27 @@ export class MemberListComponent implements OnInit{
         }
       })
     }
+    
   }
 
-  resetFilters() {
-    this.userParams = this.memberService.resetUserParams();
-    this.loadMembers();
-  }
+  openSearchModal() {
+    this.bsModalRef = this.modalService.show(SearchUserComponent);
+
+    // Lắng nghe sự kiện Search từ modal
+    this.bsModalRef.content.Search.subscribe((searchParams: UserParams) => {
+        // Gán dữ liệu tìm kiếm vào userParams
+        this.userParams = searchParams;
+
+        // Tải lại danh sách thành viên với các tham số mới
+        this.loadMembers();
+    });
+}
+
+
+  // resetFilters() {
+  //   this.userParams = this.memberService.resetUserParams();
+  //   this.loadMembers();
+  // }
 
   pageChanged(event: any) {
     if (this.userParams && this.userParams?.pageNumber !== event.page) {
@@ -58,4 +77,5 @@ export class MemberListComponent implements OnInit{
       this.loadMembers();
     }
   }
+
 }

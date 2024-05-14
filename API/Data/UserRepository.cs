@@ -44,6 +44,11 @@ namespace API.Data
 
             var minDob = DateTime.Today.AddYears(-userParams.MaxAge - 1);
             var maxDob = DateTime.Today.AddYears(-userParams.MinAge);
+            //
+            if (!string.IsNullOrEmpty(userParams.City))
+            {
+                query = query.Where(u => u.City.Contains(userParams.City));
+            }
 
             query = query.Where(u => u.DateOfBirth >= minDob && u.DateOfBirth <= maxDob);
 
@@ -73,7 +78,6 @@ namespace API.Data
                 .FirstOrDefaultAsync();
         }
 
-
         public async Task<AppUser> GetUserByUsernameAsync(string username)
         {
             return await _context.Users
@@ -93,11 +97,6 @@ namespace API.Data
                 .Include(p => p.Photos)
                 .ToListAsync();
         }
-
-        // public async Task<bool> SaveAllAsync()
-        // {
-        //     return await _context.SaveChangesAsync() > 0;
-        // }
 
         public void Update(AppUser user)
         {
