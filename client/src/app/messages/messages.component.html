@@ -1,13 +1,13 @@
 <div class="row mb-4">
     <div class="btn-group" name='container'>
-        <button class="btn btn-outline-danger" btnRadio="Unread" [(ngModel)]="container" (click)="loadMessages()">
+        <button class="btn btn-outline-danger rounded-pill" btnRadio="Unread" [(ngModel)]="container" (click)="loadMessages()">
             <i class="fa fa-envelope"></i> Unread
         </button>
-        <button class="btn btn-outline-danger" btnRadio="Inbox" [(ngModel)]="container" (click)="loadMessages()">
+        <button class="btn btn-outline-danger rounded-pill" btnRadio="Inbox" [(ngModel)]="container" (click)="loadMessages()">
             <i class="fa fa-envelope-open"></i> Inbox
         </button>
-        <button class="btn btn-outline-danger" btnRadio="Outbox" [(ngModel)]="container" (click)="loadMessages()">
-            <i class="fa fa-envelope-plane"></i> Outbox
+        <button class="btn btn-outline-danger rounded-pill" btnRadio="Outbox" [(ngModel)]="container" (click)="loadMessages()">
+            <i class="fa fa-send"></i> Outbox
         </button>
     </div>
 </div>
@@ -15,16 +15,16 @@
 <div class="row" *ngIf="messages?.length! > 0">
     <table class="table table-hover" style="cursor: pointer;">
         <tr>
-            <th style="width: 40%;">Message</th>
-            <th style="width: 20%;">From / To</th>
-            <th style="width: 20%;">Sent / Received</th>
-            <th style="width: 20%;"></th>
+            <th class="text-center" style="width: 30%;">Message</th>
+            <th class="text-center" style="width: 20%;">From / To</th>
+            <th class="text-center" style="width: 20%;">Sent / Received</th>
+            <th class="text-center" style="width: 20%;"></th>
         </tr>
         <tr [hidden]="loading" *ngFor="let message of messages" routerLink='{{container == "Outbox" 
                 ? "/members/" + message.recipientUsername 
                 : "/members/" + message.senderUserName}}' [queryParams]="{tab: 3}">
-            <td>{{message.content}}</td>
-            <td>
+            <td class="text-center">{{message.content}}</td>
+            <td class="text-center">
                 <div *ngIf="container === 'Outbox'">
                     <img class="img-circle rounded-circle mr-2"
                         src="{{message.recipientPhotoUrl || './assets/user.png'}}" alt="{{message.recipientUsername}}">
@@ -35,20 +35,20 @@
                         alt="{{message.senderUserName}}">
                     <strong>{{message.senderUserName | titlecase}}</strong>
                 </div>
-            </td>
-            <td>
+            </td >
+            <td class="text-center">
                 {{message.messageSent | timeago}}
             </td>
-            <td>
+            <td class="text-center">
                 <button (click)="$event.stopPropagation" (click)="deleteMessage(message.id)"
-                    class="btn btn-outline-danger">Delete</button>
+                    class="btn btn-outline-danger"> <i class="fa fa-trash" aria-hidden="true"></i> </button>
             </td>
         </tr>
 
     </table>
 </div>
-
-<div class="d-flex justify-content-center" *ngIf="pagination && !loading">
+<!-- && !loading -->
+<div class="d-flex justify-content-center" *ngIf="pagination ">   
     <pagination [boundaryLinks]="true" 
         [totalItems]="pagination.totalItems" 
         [itemsPerPage]="pagination.itemsPerPage"

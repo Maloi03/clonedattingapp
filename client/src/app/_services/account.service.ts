@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { User } from '../_models/user';
 import { PresenceService } from './presence.service';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Injectable({  // big data duoc cung cap
@@ -16,7 +17,7 @@ export class AccountService {
    private currenUserSource = new ReplaySubject<User>(1)
    currentUser$ = this.currenUserSource.asObservable();
 
-  constructor(private http: HttpClient, private presence: PresenceService) { } // dua httpclient vao de nhan duoc dich vu
+  constructor(private http: HttpClient, private presence: PresenceService, private toastr:ToastrService) { } // dua httpclient vao de nhan duoc dich vu
 
   login(model: any) { // tao phuong thuc login, dat model nguoi dung de nen du lieu vao ben trong va cho no gia tri any
     return this.http.post<User>(this.baseUrl + 'account/login', model).pipe( //them user vao trong post de dan tra ve dung tai khoan nguoi dung sau khi dang nhap

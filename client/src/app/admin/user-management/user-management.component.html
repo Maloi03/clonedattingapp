@@ -6,7 +6,9 @@
             <th style="width: 30%;"></th>
         </tr>
         <tr *ngFor="let user of users">
-            <td>{{user!.username}}</td>
+            <td>
+                <img class=" rounded-circle" style="width: 50px;" src="{{user!.photoUrl || './assets/user.png'}}">
+                {{user!.username}}</td>
             <td>{{user!.roles}}</td>
             <td><button (click)="openRolesModal(user!)" class="btn btn-lg btn-outline-info">Edit Roles</button></td>
         </tr>

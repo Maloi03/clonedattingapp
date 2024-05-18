@@ -47,7 +47,7 @@ namespace API.Data
             //
             if (!string.IsNullOrEmpty(userParams.City))
             {
-                query = query.Where(u => u.City.Contains(userParams.City));
+                query = query.Where(u => u.City.ToLower().Contains(userParams.City.ToLower()));
             }
 
             query = query.Where(u => u.DateOfBirth >= minDob && u.DateOfBirth <= maxDob);

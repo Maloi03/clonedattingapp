@@ -2,11 +2,11 @@
     <form #form="ngForm" class="d-flex mb-3" (ngSubmit)="loadMembers()" autocomplete="off">
         <div class="abc">
             <div class="btn-group float-end">
-                <button type="button" class="btn btn-outline-danger" name="orderBy" [(ngModel)]="userParams.orderBy"
+                <button type="button" class="btn btn-outline-danger rounded-pill" name="orderBy" [(ngModel)]="userParams.orderBy"
                     btnRadio="lastActive" (click)="loadMembers()">Last Active</button>
-                <button type="button" class="btn btn-outline-danger" name="orderBy" [(ngModel)]="userParams.orderBy"
+                <button type="button" class=" btn btn-outline-danger rounded-pill" name="orderBy" [(ngModel)]="userParams.orderBy"
                     btnRadio="created" (click)="loadMembers()">Newest members</button>
-                <button type="button" class="fa fa-search btn btn-outline-danger" (click)="openSearchModal()"> Search</button>
+                <button type="button" class="fa fa-search btn btn-outline-danger rounded-pill" (click)="openSearchModal()"> Search</button>
             </div>
 
         </div>

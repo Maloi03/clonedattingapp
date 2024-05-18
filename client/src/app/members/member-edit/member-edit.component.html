@@ -1,15 +1,16 @@
 <div class="row" *ngIf="member">
-    <div class="col-4">
-        <h1> Your Profile</h1>
+    <div class="col-md-12 text-center"> <h2>Your profile     </h2> </div>
+    <div class="col-4 text-center">
+
     </div>
     <div class="col-8">
         <div class="alert alert-info" *ngIf="editForm.dirty">
             <strong>Information :</strong> You have made changes. Any unsavaed changes will be lost
         </div>
     </div>
-    <div class="col-4">
+    <div class="col-3">
         <div class="card">
-            <img src="{{member.photoUrl || './assets/user.png'}}" alt="{{member.knownAs}}"
+            <img style="max-height: 250px; max-width: 85%; margin-left: 20px; margin-top: 10px;" src="{{member.photoUrl || './assets/user.png'}}" alt="{{member.knownAs}}"
                 class="card-img-top img-thumbnail">
             <div class="card-body">
                 <div>
@@ -30,24 +31,24 @@
                 </div>
             </div>
             <div class="card-footer">
-                <button [disabled]="!editForm" form="editForm" type="submit" class="btn btn-success btn-block">Save
+                <button [disabled]="!editForm" form="editForm" type="submit" class="btn btn-success btn-block rounded-pill" style="min-width: 100%;">Save
                     Changes</button>
             </div>
         </div>
     </div>
 
-    <div class="col-8">
+    <div class="col-9" style="border: 1px solid rgb(215, 215, 215); border-radius: 10px ;">
         <tabset class="member-tabset">
             <tab heading="About {{member.knownAs}}">
                 <form #editForm="ngForm" id="editForm" (ngSubmit)="updateMember()">
-                    <h4>Description</h4>
-                    <textarea class="form-control" [(ngModel)]="member.introduction" name="introduction"
+                    <h5>Description</h5>
+                    <textarea style="max-height: 80px;" class="form-control" [(ngModel)]="member.introduction" name="introduction"
                         rows="6"></textarea>
-                    <h4 class="mt-2">Looking for</h4>
-                    <textarea class="form-control" [(ngModel)]="member.lookingFor" name="lookingFor"
+                    <h5 class="mt-2">Looking for</h5>
+                    <textarea style="max-height: 80px;" class="form-control" [(ngModel)]="member.lookingFor" name="lookingFor"
                         rows="6"></textarea>
-                    <h4 class="mt-2">Interests</h4>
-                    <textarea class="form-control" [(ngModel)]="member.interests" name="interests" rows="6"></textarea>
+                    <h5 class="mt-2">Interests</h5>
+                    <textarea style="max-height: 80px;" class="form-control" [(ngModel)]="member.interests" name="interests" rows="6"></textarea>
                     <h4 class="mt-2">Location Details : </h4>
                     <div class="form-inline">
                         <label for="city">City: </label>

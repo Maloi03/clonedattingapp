@@ -1,35 +1,51 @@
 <div class="container mt-5 d-flex justify-content-center">
-  <div *ngIf="!registerMode" style="text-align: center;">
-    <h1 class="text-center text-primary">Find your match</h1>
-    <p class="lead ">Come on in to view your matches... all you need to do is sign in!</p>
-    <hr>
-    <form *ngIf="(accountService.currentUser$ | async) === null" #loginForm="ngForm" class="d-flex-form"
-      (ngSubmit)="login()" autocomplete="off">
-
-      <div class="d-flex p-2">
-        <!-- <label for="username">UserName: </label> -->
-        <input name="username" [(ngModel)]="model.username" class="form-control me-2" type="text" placeholder="Username">
+  <div class="row text-center" *ngIf="!registerMode">
+    <div class="col-md-12 text-center" style="margin-top: 50px;">
+      <div>
+        <h1 class="text-center text-primary">Find your match</h1>
+        <p class="lead ">Come on in to view your matches... all you need to do is sign in!</p>
       </div>
-      <div class="d-flex p-2">
-        <!-- <label for="password">Password:</label>  -->
-        <input name="password" [(ngModel)]="model.password" class="form-control me-2" type="password"
-          placeholder="Password">
+      <div *ngIf="(accountService.currentUser$ | async) === null" autocomplete="off"
+        style=" margin-top: 20px; margin-left: 60px; box-shadow: 0 40px 50px rgb(228, 116, 168);  height: 300px; width: 450px; background-color: white; border: 1px solid rgb(228, 116, 168); border-radius: 30px;">
+        <h1 class="text-center text-primary" style="margin-top: 10px;"> Login</h1>
+        <hr>
+        <form *ngIf="(accountService.currentUser$ | async) === null" #loginForm="ngForm" class="d-flex-form"
+          (ngSubmit)="login()" autocomplete="off">
+
+          <div class="d-flex p-2">
+            <input name="username" [(ngModel)]="model.username" class="form-control me-2" type="text"
+              placeholder="Username">
+          </div>
+          <div class="d-flex p-2">
+            <input name="password" [(ngModel)]="model.password" class="form-control me-2" type="password"
+              placeholder="Password">
+          </div>
+          <br />
+          <div class="row">
+            <div class="col-md-7">
+              <button class="btn btn btn-primary mr-2 rounded-pill" style="margin-left: 5px; min-width: 100%;"
+                [disabled]='!loginForm.valid'>Login <i class="fa fa-sign-in" aria-hidden="true"></i> </button>
+            </div>
+            <div class="col-md-5">
+              <div class="text-center " *ngIf="(accountService.currentUser$ | async) === null" autocomplete="off">
+                <button (click)="registerToggle()" style="min-width: 90%;"
+                  class="btn btn-outline-success rounded-pill">Register <i class="fa fa-user" aria-hidden="true"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
       </div>
-      <button class="btn btn btn-outline-primary mr-2"  style="margin-left: 5px;">Login</button>
-    </form>
-    <br><br>
-
-    <div class="text-center" *ngIf="(accountService.currentUser$ | async) === null" autocomplete="off">
-      <span>don't have an account ?</span>
-      <button (click)="registerToggle()" class="btn btn-outline-success">Register</button>
-      <!-- <button (click)="toggleLoginForm()" class="btn btn-info btn-lg m-lg-2">Learn more</button> -->
-
     </div>
   </div>
 
-  <div *ngIf="registerMode" class="container">
+  <div *ngIf="registerMode" class="">
     <div class="row justify-content-center">
-      <div class="col-4">
+      <div>
+        <h1 class="text-center text-primary">Find your match</h1>
+        <p class="lead text-center">Come on in to view your matches... all you need to do is sign in!</p>
+      </div>
+      <div class="col-5">
         <app-register (cancelRegister)="cancelRegisterMode($event)"></app-register>
       </div>
     </div>
